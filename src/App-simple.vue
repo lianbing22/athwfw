@@ -257,9 +257,26 @@ const submitEquipment = async () => {
 <style scoped>
 .home-page {
   min-height: 100vh;
+  background: #667eea; /* 备用纯色背景 */
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-attachment: fixed;
   padding: 0;
   margin: 0;
+  position: relative;
+}
+
+.home-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(102, 126, 234, 0.9) 0%, 
+    rgba(118, 75, 162, 0.9) 50%,
+    rgba(102, 126, 234, 0.8) 100%);
+  z-index: 0;
 }
 
 .page-header {
@@ -267,6 +284,7 @@ const submitEquipment = async () => {
   padding: 40px 20px 60px;
   text-align: center;
   overflow: hidden;
+  z-index: 1;
 }
 
 .header-content {
@@ -306,6 +324,8 @@ const submitEquipment = async () => {
   gap: 20px;
   max-width: 600px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .service-card {
