@@ -115,7 +115,6 @@
 
 <script setup>
 import { ref } from 'vue'
-import wechatBot from './utils/wechatBot.js'
 
 // 页面状态
 const showMeetingService = ref(false)
@@ -153,7 +152,21 @@ const getUserInfo = () => {
 const sendWeChatNotification = async (serviceInfo) => {
   try {
     console.log('准备发送企业微信通知:', serviceInfo)
-    const result = await wechatBot.sendServiceRequest(serviceInfo)
+    
+    // 调用后端API发送企业微信通知
+    const response = await fetch('http://localhost:3001/api/wechat/notify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ serviceInfo })
+    })
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    
+    const result = await response.json()
     console.log('企业微信通知发送成功:', result)
     return result
   } catch (error) {
