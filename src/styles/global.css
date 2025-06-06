@@ -1,0 +1,415 @@
+/* CSS变量定义 */
+:root {
+  /* 主色调 */
+  --primary-color: #1890ff;
+  --primary-light: #e6f7ff;
+  --primary-dark: #096dd9;
+  
+  /* 文本颜色 */
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-disabled: #999999;
+  
+  /* 背景颜色 */
+  --background-light: #f5f5f5;
+  --background-white: #ffffff;
+  
+  /* 边框颜色 */
+  --border-color: #d9d9d9;
+  --border-light: #f0f0f0;
+  
+  /* 状态颜色 */
+  --success-color: #52c41a;
+  --success-light: #f6ffed;
+  --warning-color: #faad14;
+  --warning-light: #fff7e6;
+  --error-color: #ff4d4f;
+  --error-light: #fff2f0;
+  --info-color: #1890ff;
+  --info-light: #e6f7ff;
+  
+  /* 阴影 */
+  --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.15);
+  
+  /* 圆角 */
+  --border-radius: 8px;
+  --border-radius-large: 12px;
+}
+
+/* 重置样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-light);
+  color: var(--text-primary);
+}
+
+/* 移动端适配 */
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+/* 通用类 */
+.container {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 0 16px;
+  background-color: #fff;
+  min-height: 100vh;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 16px;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.page-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.page-content {
+  padding: 16px;
+}
+
+/* 按钮样式 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  min-height: 44px;
+}
+
+.btn-primary {
+  background-color: #1890ff;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #40a9ff;
+}
+
+.btn-primary:active {
+  background-color: #096dd9;
+}
+
+.btn-secondary {
+  background-color: #f5f5f5;
+  color: #666;
+}
+
+.btn-secondary:hover {
+  background-color: #e6e6e6;
+}
+
+.btn-success {
+  background-color: #52c41a;
+  color: #fff;
+}
+
+.btn-success:hover {
+  background-color: #73d13d;
+}
+
+.btn-warning {
+  background-color: #faad14;
+  color: #fff;
+}
+
+.btn-warning:hover {
+  background-color: #ffc53d;
+}
+
+.btn-danger {
+  background-color: #ff4d4f;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #ff7875;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* 表单样式 */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  font-size: 16px;
+  background-color: #fff;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.form-select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  font-size: 16px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.form-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  font-size: 16px;
+  background-color: #fff;
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* 卡片样式 */
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+.card-header {
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.card-content {
+  padding: 16px;
+}
+
+.card-footer {
+  padding: 16px;
+  border-top: 1px solid #f0f0f0;
+  background-color: #fafafa;
+}
+
+/* 列表样式 */
+.list {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.list-item:hover {
+  background-color: #f5f5f5;
+}
+
+.list-item-content {
+  flex: 1;
+}
+
+.list-item-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.list-item-desc {
+  font-size: 14px;
+  color: #666;
+}
+
+.list-item-extra {
+  margin-left: 12px;
+  color: #999;
+}
+
+/* 状态样式 */
+.status {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-pending {
+  background-color: #fff7e6;
+  color: #fa8c16;
+}
+
+.status-processing {
+  background-color: #e6f7ff;
+  color: #1890ff;
+}
+
+.status-success {
+  background-color: #f6ffed;
+  color: #52c41a;
+}
+
+.status-error {
+  background-color: #fff2f0;
+  color: #ff4d4f;
+}
+
+/* 工具类 */
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.mt-16 {
+  margin-top: 16px;
+}
+
+.mb-16 {
+  margin-bottom: 16px;
+}
+
+.ml-8 {
+  margin-left: 8px;
+}
+
+.mr-8 {
+  margin-right: 8px;
+}
+
+.p-16 {
+  padding: 16px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+/* 加载动画 */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  color: #666;
+}
+
+.loading::after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #1890ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 8px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 响应式 */
+@media screen and (max-width: 480px) {
+  .container {
+    padding: 0 12px;
+  }
+  
+  .page-content {
+    padding: 12px;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
