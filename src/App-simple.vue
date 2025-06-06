@@ -4,7 +4,10 @@
       <!-- 页面头部 -->
       <div class="page-header">
         <div class="header-content">
-          <h1 class="page-title">🏢 阿泰会务服务</h1>
+          <div class="logo-container">
+            <img src="./img/logo.png" alt="阿泰会务服务" class="logo" onerror="console.log('Logo failed to load')" />
+          </div>
+          <h1 class="page-title">阿泰会务服务</h1>
           <p class="page-subtitle">为您提供专业便捷的会议室服务</p>
         </div>
         <div class="header-decoration"></div>
@@ -281,10 +284,12 @@ const submitEquipment = async () => {
 
 .page-header {
   position: relative;
-  padding: 40px 20px 60px;
+  padding: 30px 20px 50px;
   text-align: center;
   overflow: hidden;
   z-index: 1;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
 }
 
 .header-content {
@@ -292,29 +297,63 @@ const submitEquipment = async () => {
   z-index: 2;
 }
 
+.logo-container {
+  margin-bottom: 20px;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.logo {
+  max-width: 200px;
+  height: 80px;
+  border-radius: 12px;
+  margin: 0 auto 20px;
+  object-fit: contain;
+  background: #ffffff;
+  border: 2px solid #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  padding: 12px;
+  display: block;
+  opacity: 1;
+  z-index: 10;
+  position: relative;
+}
+
 .header-decoration {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23ffffff" opacity="0.1"><path d="M0,0 C150,100 350,0 500,50 C650,100 850,0 1000,50 L1000,100 L0,100 Z"/></svg>') no-repeat center bottom;
-  background-size: cover;
+  display: none;
 }
 
 .page-title {
-  font-size: 32px;
-  color: white;
-  margin-bottom: 12px;
+  font-size: 28px;
+  color: #ffffff;
+  margin: 0 0 20px 0;
   font-weight: 700;
   text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  display: block;
+  text-align: center;
+  z-index: 10;
+  position: relative;
 }
 
 .page-subtitle {
-  color: rgba(255,255,255,0.9);
+  color: #ffffff;
   font-size: 16px;
   margin: 0;
-  font-weight: 300;
+  font-weight: 400;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px 20px;
+  border-radius: 25px;
+  display: inline-block;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  z-index: 10;
+  position: relative;
+  visibility: visible;
+  opacity: 1;
 }
 
 .service-grid {
@@ -532,15 +571,41 @@ textarea {
 /* 移动端适配 */
 @media (max-width: 768px) {
   .page-header {
-    padding: 30px 15px 50px;
+    padding: 20px 15px 40px;
+  }
+  
+  .logo-container {
+    margin-bottom: 15px;
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+  
+  .logo {
+    max-width: 160px;
+    height: 60px;
+    padding: 8px;
+    margin: 0 auto 15px;
+    background: #ffffff;
+    border: 2px solid #ffffff;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
   
   .page-title {
-    font-size: 28px;
+    font-size: 22px;
+    margin-bottom: 15px;
+    display: block !important;
+    visibility: visible !important;
   }
   
   .page-subtitle {
     font-size: 14px;
+    padding: 8px 16px;
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
   
   .service-grid {
