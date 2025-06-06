@@ -3,56 +3,48 @@
     <div class="home-page">
       <!-- 页面头部 -->
       <div class="page-header">
-        <h1 class="page-title">阿泰会务服务</h1>
-        <p class="page-subtitle">为您提供专业的会议室服务</p>
+        <div class="header-content">
+          <h1 class="page-title">🏢 阿泰会务服务</h1>
+          <p class="page-subtitle">为您提供专业便捷的会议室服务</p>
+        </div>
+        <div class="header-decoration"></div>
       </div>
 
-      <!-- 快速操作区域 -->
-      <div class="quick-actions">
-        <div class="action-card primary" @click="showMeetingService = true">
-          <div class="action-icon">📱</div>
-          <div class="action-content">
-            <div class="action-title">会中扫码服务</div>
-            <div class="action-desc">空调调温 · 茶水服务 · 设备维护</div>
-          </div>
-          <div class="action-badge">MVP</div>
-        </div>
-      </div>
-
-      <!-- 会中扫码服务页面 -->
-      <div v-if="showMeetingService" class="meeting-service">
-        <div class="service-header">
-          <button @click="showMeetingService = false" class="back-btn">← 返回</button>
-          <h2>会中扫码服务</h2>
-        </div>
-
-        <!-- 服务选项 -->
-        <div class="service-options">
-          <!-- 空调调温 -->
-          <div class="service-card" @click="showAirCondition = true">
+      <!-- 服务选项卡片 -->
+      <div class="service-grid">
+        <!-- 空调调温 -->
+        <div class="service-card air-condition" @click="showAirCondition = true">
+          <div class="service-background">
             <div class="service-icon">❄️</div>
-            <div class="service-info">
-              <h3>空调调温</h3>
-              <p>调节会议室温度</p>
-            </div>
           </div>
+          <div class="service-content">
+            <h3 class="service-title">空调调温</h3>
+            <p class="service-desc">调节会议室温度</p>
+            <div class="service-arrow">→</div>
+          </div>
+        </div>
 
-          <!-- 茶水服务 -->
-          <div class="service-card" @click="showTeaService = true">
+        <!-- 茶水服务 -->
+        <div class="service-card tea-service" @click="showTeaService = true">
+          <div class="service-background">
             <div class="service-icon">☕</div>
-            <div class="service-info">
-              <h3>茶水服务</h3>
-              <p>茶水更换或添加</p>
-            </div>
           </div>
+          <div class="service-content">
+            <h3 class="service-title">茶水服务</h3>
+            <p class="service-desc">茶水更换或添加</p>
+            <div class="service-arrow">→</div>
+          </div>
+        </div>
 
-          <!-- 设备维护 -->
-          <div class="service-card" @click="showEquipment = true">
+        <!-- 设备维护 -->
+        <div class="service-card equipment-service" @click="showEquipment = true">
+          <div class="service-background">
             <div class="service-icon">🎤</div>
-            <div class="service-info">
-              <h3>设备维护</h3>
-              <p>话筒、投影设备</p>
-            </div>
+          </div>
+          <div class="service-content">
+            <h3 class="service-title">设备维护</h3>
+            <p class="service-desc">话筒、投影设备</p>
+            <div class="service-arrow">→</div>
           </div>
         </div>
       </div>
@@ -117,7 +109,6 @@
 import { ref } from 'vue'
 
 // 页面状态
-const showMeetingService = ref(false)
 const showAirCondition = ref(false)
 const showTeaService = ref(false)
 const showEquipment = ref(false)
@@ -265,135 +256,139 @@ const submitEquipment = async () => {
 
 <style scoped>
 .home-page {
-  padding: 20px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 0;
+  margin: 0;
+}
+
+.page-header {
+  position: relative;
+  padding: 40px 20px 60px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.header-content {
+  position: relative;
+  z-index: 2;
+}
+
+.header-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23ffffff" opacity="0.1"><path d="M0,0 C150,100 350,0 500,50 C650,100 850,0 1000,50 L1000,100 L0,100 Z"/></svg>') no-repeat center bottom;
+  background-size: cover;
+}
+
+.page-title {
+  font-size: 32px;
+  color: white;
+  margin-bottom: 12px;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.page-subtitle {
+  color: rgba(255,255,255,0.9);
+  font-size: 16px;
+  margin: 0;
+  font-weight: 300;
+}
+
+.service-grid {
+  padding: 0 20px 40px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
   max-width: 600px;
   margin: 0 auto;
 }
 
-.page-header {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.page-title {
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 8px;
-}
-
-.page-subtitle {
-  color: #666;
-  font-size: 14px;
-}
-
-.quick-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.action-card {
-  display: flex;
-  align-items: center;
-  padding: 20px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  cursor: pointer;
-  transition: transform 0.2s;
-  position: relative;
-}
-
-.action-card:hover {
-  transform: translateY(-2px);
-}
-
-.action-card.primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-}
-
-.action-icon {
-  font-size: 32px;
-  margin-right: 15px;
-}
-
-.action-content {
-  flex: 1;
-}
-
-.action-title {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.action-desc {
-  font-size: 14px;
-  opacity: 0.8;
-}
-
-.action-badge {
-  background: rgba(255,255,255,0.2);
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.meeting-service {
-  margin-top: 30px;
-}
-
-.service-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.back-btn {
-  background: none;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-.service-options {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
 .service-card {
-  display: flex;
-  align-items: center;
-  padding: 20px;
+  position: relative;
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 20px;
+  padding: 0;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  overflow: hidden;
 }
 
 .service-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-8px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+}
+
+.service-background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 0 20px 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.air-condition .service-background {
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+}
+
+.tea-service .service-background {
+  background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%);
+}
+
+.equipment-service .service-background {
+  background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%);
 }
 
 .service-icon {
-  font-size: 32px;
-  margin-right: 15px;
+  font-size: 28px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
 }
 
-.service-info h3 {
-  margin: 0 0 4px 0;
-  font-size: 16px;
+.service-content {
+  padding: 24px;
+  position: relative;
 }
 
-.service-info p {
+.service-title {
+  margin: 0 0 8px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #2d3436;
+}
+
+.service-desc {
   margin: 0;
-  color: #666;
+  color: #636e72;
   font-size: 14px;
+  line-height: 1.5;
+}
+
+.service-arrow {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  font-size: 18px;
+  color: #b2bec3;
+  transition: all 0.3s ease;
+}
+
+.service-card:hover .service-arrow {
+  color: #74b9ff;
+  transform: translateX(4px);
+}
+
+.service-card:hover .service-background {
+  transform: scale(1.1);
 }
 
 .modal-overlay {
@@ -516,24 +511,43 @@ textarea {
 
 /* 移动端适配 */
 @media (max-width: 768px) {
-  .home-page {
-    padding: 15px;
+  .page-header {
+    padding: 30px 15px 50px;
   }
   
   .page-title {
-    font-size: 20px;
-  }
-  
-  .action-card {
-    padding: 15px;
-  }
-  
-  .action-icon {
     font-size: 28px;
+  }
+  
+  .page-subtitle {
+    font-size: 14px;
+  }
+  
+  .service-grid {
+    padding: 0 15px 30px;
+    gap: 16px;
+  }
+  
+  .service-content {
+    padding: 20px;
+  }
+  
+  .service-title {
+    font-size: 18px;
+  }
+  
+  .service-background {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .service-icon {
+    font-size: 24px;
   }
   
   .modal-content {
     padding: 20px;
+    margin: 20px;
   }
 }
 </style>
