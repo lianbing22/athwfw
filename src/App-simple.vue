@@ -288,7 +288,7 @@ const submitEquipment = async () => {
   text-align: center;
   overflow: hidden;
   z-index: 1;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: transparent;
   border: none;
 }
 
@@ -365,6 +365,7 @@ const submitEquipment = async () => {
   margin: 0 auto;
   position: relative;
   z-index: 1;
+  background: transparent;
 }
 
 .service-card {
@@ -571,21 +572,39 @@ textarea {
 /* 移动端适配 */
 @media (max-width: 768px) {
   .page-header {
-    padding: 20px 15px 40px;
+    padding: 50px 0 40px;
+    min-height: 220px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background: transparent;
+  }
+  
+  .header-content {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   
   .logo-container {
-    margin-bottom: 15px;
-    display: block !important;
     width: 100% !important;
     text-align: center !important;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .logo {
     max-width: 160px;
     height: 60px;
     padding: 8px;
-    margin: 0 auto 15px;
+    margin: 0;
     background: #ffffff;
     border: 2px solid #ffffff;
     display: block !important;
@@ -595,9 +614,11 @@ textarea {
   
   .page-title {
     font-size: 22px;
-    margin-bottom: 15px;
+    margin: 0 0 12px 0;
     display: block !important;
     visibility: visible !important;
+    text-align: center !important;
+    width: 100%;
   }
   
   .page-subtitle {
@@ -606,11 +627,17 @@ textarea {
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
+    margin: 0 0 10px 0;
+    text-align: center;
+    white-space: nowrap;
+    overflow: visible;
   }
   
   .service-grid {
     padding: 0 15px 30px;
     gap: 16px;
+    margin-top: 0;
+    background: transparent;
   }
   
   .service-content {
