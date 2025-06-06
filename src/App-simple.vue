@@ -3,7 +3,7 @@
     <div class="home-page">
       <!-- 页面头部 -->
       <div class="page-header">
-        <h1 class="page-title">会议室服务系统</h1>
+        <h1 class="page-title">阿泰会务服务</h1>
         <p class="page-subtitle">为您提供专业的会议室服务</p>
       </div>
 
@@ -115,6 +115,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import wechatBot from './utils/wechatBot.js'
 
 // 页面状态
 const showMeetingService = ref(false)
@@ -130,22 +131,95 @@ const teaType = ref('更换')
 const equipmentTypes = ref([])
 const equipmentDesc = ref('')
 
+// 获取会议室信息（模拟数据）
+const getRoomInfo = () => {
+  return {
+    name: '会议室A-301',
+    building: 'A栋',
+    floor: '3楼'
+  }
+}
+
+// 获取用户信息（模拟数据）
+const getUserInfo = () => {
+  return {
+    name: '张三',
+    department: '技术部',
+    mobile: '138****1234'
+  }
+}
+
+// 发送企业微信通知
+const sendWeChatNotification = async (serviceInfo) => {
+  try {
+    await wechatBot.sendServiceRequest(serviceInfo)
+    console.log('企业微信通知发送成功')
+  } catch (error) {
+    console.error('企业微信通知发送失败:', error)
+    // 即使通知发送失败，也不影响用户体验
+  }
+}
+
 // 提交方法
-const submitAirCondition = () => {
-  successMessage.value = `空调调温申请已提交，目标温度：${temperature.value}°C`
+const submitAirCondition = async () => {
+  const serviceInfo = {
+    type: '空调调温',
+    details: {
+      temperature: temperature.value,
+      note: '用户通过阿泰会务服务系统申请'
+    },
+    roomInfo: getRoomInfo(),
+    userInfo: getUserInfo(),
+    timestamp: Date.now()
+  }
+  
+  // 发送企业微信通知
+  await sendWeChatNotification(serviceInfo)
+  
+  successMessage.value = `空调调温申请已提交，目标温度：${temperature.value}°C\n工作人员将尽快为您处理`
   showAirCondition.value = false
   showSuccess.value = true
 }
 
-const submitTeaService = () => {
-  successMessage.value = `茶水服务申请已提交，服务类型：${teaType.value}`
+const submitTeaService = async () => {
+  const serviceInfo = {
+    type: '茶水服务',
+    details: {
+      serviceType: teaType.value,
+      quantity: 1,
+      note: '用户通过阿泰会务服务系统申请'
+    },
+    roomInfo: getRoomInfo(),
+    userInfo: getUserInfo(),
+    timestamp: Date.now()
+  }
+  
+  // 发送企业微信通知
+  await sendWeChatNotification(serviceInfo)
+  
+  successMessage.value = `茶水服务申请已提交，服务类型：${teaType.value}\n工作人员将尽快为您处理`
   showTeaService.value = false
   showSuccess.value = true
 }
 
-const submitEquipment = () => {
+const submitEquipment = async () => {
   const types = equipmentTypes.value.join('、')
-  successMessage.value = `设备维护申请已提交，设备：${types}`
+  const serviceInfo = {
+    type: '设备维护',
+    details: {
+      equipmentType: types,
+      issue: equipmentDesc.value || '设备检查维护',
+      urgency: '普通'
+    },
+    roomInfo: getRoomInfo(),
+    userInfo: getUserInfo(),
+    timestamp: Date.now()
+  }
+  
+  // 发送企业微信通知
+  await sendWeChatNotification(serviceInfo)
+  
+  successMessage.value = `设备维护申请已提交，设备：${types}\n工作人员将尽快为您处理`
   showEquipment.value = false
   showSuccess.value = true
   equipmentTypes.value = []
