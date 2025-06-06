@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>前端企业微信测试</title>
+</head>
+<body>
+    <h1>前端企业微信通知测试</h1>
+    <button onclick="testWeChatNotification()">测试发送通知</button>
+    <div id="result"></div>
+
+    <script>
+        async function testWeChatNotification() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '正在发送...';
+            
+            try {
+                const webhookUrl = 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=a1871121-70b0-48a3-b3c1-f37240c7a5b3';
+                
+                const data = {
+                    msgtype: 'text',
+                    text: {
+                        content: '前端测试消息 - ' + new Date().toLocaleString()
+                    }
+                };
+                
+                console.log('发送数据:', data);
+                
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                console.log('响应结果:', result);
+                
+                resultDiv.innerHTML = `发送结果: ${JSON.stringify(result)}`;
+                
+            } catch (error) {
+                console.error('发送失败:', error);
+                resultDiv.innerHTML = `发送失败: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>

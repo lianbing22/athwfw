@@ -152,11 +152,15 @@ const getUserInfo = () => {
 // 发送企业微信通知
 const sendWeChatNotification = async (serviceInfo) => {
   try {
-    await wechatBot.sendServiceRequest(serviceInfo)
-    console.log('企业微信通知发送成功')
+    console.log('准备发送企业微信通知:', serviceInfo)
+    const result = await wechatBot.sendServiceRequest(serviceInfo)
+    console.log('企业微信通知发送成功:', result)
+    return result
   } catch (error) {
     console.error('企业微信通知发送失败:', error)
+    console.error('错误详情:', error.message)
     // 即使通知发送失败，也不影响用户体验
+    throw error
   }
 }
 
@@ -174,9 +178,13 @@ const submitAirCondition = async () => {
   }
   
   // 发送企业微信通知
-  await sendWeChatNotification(serviceInfo)
-  
-  successMessage.value = `空调调温申请已提交，目标温度：${temperature.value}°C\n工作人员将尽快为您处理`
+  try {
+    await sendWeChatNotification(serviceInfo)
+    successMessage.value = `空调调温申请已提交，目标温度：${temperature.value}°C\n企业微信通知已发送，工作人员将尽快为您处理`
+  } catch (error) {
+    console.warn('企业微信通知发送失败，但申请已记录')
+    successMessage.value = `空调调温申请已提交，目标温度：${temperature.value}°C\n工作人员将尽快为您处理`
+  }
   showAirCondition.value = false
   showSuccess.value = true
 }
@@ -195,11 +203,18 @@ const submitTeaService = async () => {
   }
   
   // 发送企业微信通知
-  await sendWeChatNotification(serviceInfo)
-  
-  successMessage.value = `茶水服务申请已提交，服务类型：${teaType.value}\n工作人员将尽快为您处理`
+  try {
+    await sendWeChatNotification(serviceInfo)
+    successMessage.value = `茶水服务申请已提交，服务类型：${teaType.value}\n企业微信通知已发送，工作人员将尽快为您处理`
+  } catch (error) {
+    console.warn('企业微信通知发送失败，但申请已记录')
+    successMessage.value = `茶水服务申请已提交，服务类型：${teaType.value}\n工作人员将尽快为您处理`
+  }
   showTeaService.value = false
   showSuccess.value = true
+  setTimeout(() => {
+    showSuccess.value = false
+  }, 3000)
 }
 
 const submitEquipment = async () => {
@@ -209,7 +224,8 @@ const submitEquipment = async () => {
     details: {
       equipmentType: types,
       issue: equipmentDesc.value || '设备检查维护',
-      urgency: '普通'
+      urgency: '普通',
+      note: '用户通过阿泰会务服务系统申请'
     },
     roomInfo: getRoomInfo(),
     userInfo: getUserInfo(),
@@ -217,11 +233,18 @@ const submitEquipment = async () => {
   }
   
   // 发送企业微信通知
-  await sendWeChatNotification(serviceInfo)
-  
-  successMessage.value = `设备维护申请已提交，设备：${types}\n工作人员将尽快为您处理`
+  try {
+    await sendWeChatNotification(serviceInfo)
+    successMessage.value = `设备维护申请已提交，设备：${types}\n企业微信通知已发送，工作人员将尽快为您处理`
+  } catch (error) {
+    console.warn('企业微信通知发送失败，但申请已记录')
+    successMessage.value = `设备维护申请已提交，设备：${types}\n工作人员将尽快为您处理`
+  }
   showEquipment.value = false
   showSuccess.value = true
+  setTimeout(() => {
+    showSuccess.value = false
+  }, 3000)
   equipmentTypes.value = []
   equipmentDesc.value = ''
 }

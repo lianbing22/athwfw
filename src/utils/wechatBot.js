@@ -96,26 +96,44 @@ class WeChatBot {
   async sendServiceRequest(serviceInfo) {
     const { type, details, roomInfo, userInfo, timestamp } = serviceInfo;
     
-    // 根据服务类型设置图标和颜色
-    const serviceConfig = {
-      '空调调温': { icon: '❄️', color: 'info' },
-      '茶水服务': { icon: '☕', color: 'comment' },
-      '设备维护': { icon: '🎤', color: 'warning' }
+    // 格式化时间
+    const date = new Date(timestamp);
+    const formattedTime = `${date.getFullYear()}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+    
+    // 根据服务类型设置图标
+    const serviceIcons = {
+      '茶水服务': '☕',
+      '设备维护': '🔧',
+      '空调调温': '❄️',
+      '其他服务': '📋'
     };
     
-    const config = serviceConfig[type] || { icon: '📋', color: 'comment' };
-    const time = new Date(timestamp).toLocaleString('zh-CN');
+    const icon = serviceIcons[type] || serviceIcons['其他服务'];
     
-    const content = `## ${config.icon} 阿泰会务服务申请
-
-` +
-      `> **服务类型**: <font color="${config.color}">${type}</font>\n` +
-      `> **申请时间**: ${time}\n` +
-      `> **会议室**: ${roomInfo?.name || '未知'}\n` +
-      `> **申请人**: ${userInfo?.name || '匿名用户'}\n\n` +
-      `**服务详情**:\n${this.formatServiceDetails(type, details)}\n\n` +
-      `---\n` +
-      `*请相关工作人员及时处理此服务申请*`;
+    // 构建详情信息
+    let detailsText = '';
+    if (details) {
+      Object.entries(details).forEach(([key, value]) => {
+        if (key !== 'note' && value !== undefined && value !== null && value !== '') {
+          const displayKey = {
+            'serviceType': '服务类型',
+            'quantity': '数量',
+            'temperature': '目标温度',
+            'issue': '问题描述',
+            'urgency': '紧急程度'
+          }[key] || key;
+          
+          detailsText += `${displayKey}: ${value}\n`;
+        }
+      });
+      
+      if (details.note) {
+        detailsText += `备注: ${details.note}\n`;
+      }
+    }
+    
+    // 构建简化的Markdown内容，避免复杂格式
+    const content = `${icon} 阿泰会务服务申请\n\n服务类型: <font color="comment">${type}</font>\n申请时间: ${formattedTime}\n会议室: ${roomInfo?.name || '未指定'}\n申请人: ${userInfo?.name || '未知用户'}\n\n服务详情:\n${detailsText}\n请相关工作人员及时处理此服务申请`;
     
     return this.sendMarkdown(content);
   }
